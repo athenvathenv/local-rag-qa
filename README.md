@@ -1,12 +1,12 @@
 # Local RAG Q&A System
 
-A fully local Retrieval-Augmented Generation (RAG) system — no cloud API, no OpenAI dependency.
+A fully local Retrieval-Augmented Generation (RAG) system — no API dependency.
 
 ## Overview
 
 This project implements a complete RAG pipeline running entirely on local hardware:
 - Documents are encoded into vectors using Sentence-Transformers
-- Vectors are indexed with FAISS for fast similarity search
+- Vectors are indexed and stored with Chroma for fast similarity search
 - Retrieved context is passed to a local Qwen2 LLM to generate answers
 - Interactive query loop for real-time Q&A
 
@@ -16,7 +16,7 @@ User Query
     ↓
 Sentence-Transformers (local embedding)
     ↓
-FAISS IndexFlatL2 (similarity search → top-3 docs)
+Chroma Flat Index (brute-force similarity search → top-3 docs)
     ↓
 Prompt Assembly (context + query)
     ↓
@@ -28,14 +28,13 @@ Answer
 ## Tech Stack
 
 - **Embeddings**: Sentence-Transformers (local, CPU)
-- **Vector Index**: FAISS (IndexFlatL2)
-- **LLM**: Qwen2-0.5B-Instruct (local, via HuggingFace)
-- **No external API required** — runs fully offline
+- **Vector DB**: Chroma (default Flat index)
+- **LLM**: Qwen2-0.5B-Instruct (local, fully offline)
 
 ## Quick Start
 ```bash
-pip install faiss-cpu sentence-transformers transformers torch
-python faiss_demo.py
+rag_env\Scripts\activate
+(rag_env) 你的文件路径
 ```
 
 ## Key Features
@@ -44,3 +43,10 @@ python faiss_demo.py
 - Swappable document corpus — edit the `documents` list
 - Swappable LLM — replace Qwen2 with any HuggingFace model
 - Interactive CLI for real-time querying
+-
+## Markdown
+RAG:
+<img width="2306" height="344" alt="image" src="https://github.com/user-attachments/assets/b4d18cb3-bbee-459c-942e-a9adfceb5380" />
+py:
+<img width="1118" height="748" alt="image" src="https://github.com/user-attachments/assets/3164587f-1d86-4804-9715-0f85b751c28c" />
+
